@@ -1,0 +1,21 @@
+# configs/config.yaml
+
+# Data settings
+vocab_size: 10000
+sequence_length: 250
+batch_size: 64
+buffer_size: 10000
+
+# Model settings
+embedding_dim: 64
+lstm_units: 64
+dense_units: 64
+dropout_rate: 0.5
+
+# Training settings
+epochs: 5
+learning_rate: 0.001
+
+# Paths
+model_save_path: outputs/models/sentiment_model.h5
+log_dir: outputs/logs

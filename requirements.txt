@@ -1,0 +1,4 @@
+# requirements.txt
+tensorflow
+tensorflow-datasets
+pyyaml

@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+*.pyc
+*.h5
+*.keras
+*.log
+outputs/logs/
+outputs/models/
+.DS_Store
+.env
+.ipynb_checkpoints
