@@ -1,13 +1,19 @@
 import tensorflow as tf
+from tensorflow.keras.layers import TextVectorization
 import streamlit as st
 from imdb import IMDb
-from src.data_loader import load_config, get_datasets, get_vectorize_layer
+from src.data_loader import load_config, load_vocabulary
 
 @st.cache_resource
 def load_resources():
     config = load_config()
-    train_data, _ = get_datasets(config)
-    vectorize_layer = get_vectorize_layer(config, train_data)
+    vocab = load_vocabulary(config.get('vocab_path', 'outputs/vocab.txt'))
+    vectorize_layer = TextVectorization(
+        max_tokens=config['vocab_size'],
+        output_mode='int',
+        output_sequence_length=config['sequence_length'],
+    )
+    vectorize_layer.set_vocabulary(vocab)
     model = tf.keras.models.load_model(config['model_save_path'])
     return model, vectorize_layer
 
