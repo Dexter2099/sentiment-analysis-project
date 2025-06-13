@@ -49,7 +49,7 @@ def save_vocabulary(vectorize_layer, filepath):
     """Save the vocabulary from a TextVectorization layer."""
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     vocab = vectorize_layer.get_vocabulary()
-    with open(filepath, 'w') as f:
+    with open(filepath, 'w', encoding='utf-8') as f:
         for token in vocab:
             f.write(token + '\n')
 
