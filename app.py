@@ -17,12 +17,15 @@ def load_resources():
     model = tf.keras.models.load_model(config['model_save_path'])
     return model, vectorize_layer
 
-def fetch_reviews(title: str):
+def search_movies(title: str):
+    """Search IMDb and return a list of movie objects for the title."""
     ia = IMDb()
-    results = ia.search_movie(title)
-    if not results:
-        return []
-    movie = results[0]
+    return ia.search_movie(title) or []
+
+
+def fetch_reviews(movie):
+    """Fetch reviews for a given IMDb movie object."""
+    ia = IMDb()
     ia.update(movie, info=['reviews'])
     reviews = movie.get('reviews', [])
     return [r.get('content', '') for r in reviews]
@@ -32,8 +35,25 @@ def main():
     model, vectorize_layer = load_resources()
     movie_title = st.text_input('Enter a movie title')
     if movie_title:
+        with st.spinner('Searching...'):
+            results = search_movies(movie_title)
+
+        if not results:
+            st.warning('No movies found.')
+            return
+
+        if len(results) > 1:
+            options = {
+                f"{m.get('title')} ({m.get('year', 'N/A')})": m for m in results
+            }
+            choice = st.selectbox('Select a movie', list(options.keys()))
+            movie = options[choice]
+        else:
+            movie = results[0]
+
         with st.spinner('Fetching reviews...'):
-            reviews = fetch_reviews(movie_title)
+            reviews = fetch_reviews(movie)
+
         if not reviews:
             st.warning('No reviews found for this movie.')
         else:
