@@ -23,8 +23,8 @@ python main.py --mode eval
 ```
 
 ### Run the Web App
-After training, you can launch a simple Streamlit interface to explore
-sentiment predictions for IMDb movies:
+After training, you can launch a Streamlit interface that loads sample
+reviews from the IMDb dataset and predicts their sentiment:
 
 ```bash
 streamlit run app.py
