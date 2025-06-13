@@ -2,7 +2,13 @@
 
 import os
 import tensorflow as tf
-from src.data_loader import load_config, get_datasets, get_vectorize_layer, vectorize_dataset
+from src.data_loader import (
+    load_config,
+    get_datasets,
+    get_vectorize_layer,
+    vectorize_dataset,
+    save_vocabulary,
+)
 from src.model import build_lstm_model
 
 def train():
@@ -11,6 +17,7 @@ def train():
     # Load and preprocess datasets
     train_data, test_data = get_datasets(config)
     vectorize_layer = get_vectorize_layer(config, train_data)
+    save_vocabulary(vectorize_layer, config.get('vocab_path', 'outputs/vocab.txt'))
     train_data = vectorize_dataset(train_data, vectorize_layer)
     test_data = vectorize_dataset(test_data, vectorize_layer)
 

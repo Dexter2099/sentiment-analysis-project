@@ -1,5 +1,6 @@
 # src/data_loader.py
 
+import os
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import yaml
@@ -42,3 +43,18 @@ def vectorize_dataset(dataset, vectorize_layer):
         return vectorize_layer(text), label
 
     return dataset.map(vectorize_text)
+
+
+def save_vocabulary(vectorize_layer, filepath):
+    """Save the vocabulary from a TextVectorization layer."""
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    vocab = vectorize_layer.get_vocabulary()
+    with open(filepath, 'w') as f:
+        for token in vocab:
+            f.write(token + '\n')
+
+
+def load_vocabulary(filepath):
+    """Load a vocabulary file into a Python list."""
+    with open(filepath, 'r') as f:
+        return [line.strip() for line in f]
