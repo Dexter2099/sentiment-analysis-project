@@ -19,3 +19,4 @@ learning_rate: 0.001
 # Paths
 model_save_path: outputs/models/sentiment_model.h5
 log_dir: outputs/logs
+vocab_path: outputs/vocab.txt
