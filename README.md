@@ -22,6 +22,14 @@ python main.py --mode train
 python main.py --mode eval
 ```
 
+### Run the Web App
+After training, you can launch a simple Streamlit interface to explore
+sentiment predictions for IMDb movies:
+
+```bash
+streamlit run app.py
+```
+
 ## Results
 Using the default configuration (5 epochs, embedding size 64), the model reaches about **86% accuracy** on the test set. The exact numbers may vary but should be in this range after several epochs of training.
 

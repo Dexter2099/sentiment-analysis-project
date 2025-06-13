@@ -2,3 +2,5 @@
 tensorflow
 tensorflow-datasets
 pyyaml
+streamlit
+IMDbPY
